@@ -1,7 +1,7 @@
 #CI de Nível 02 - Disparo executado agendado
 
 #nome que vai aparecer nas opções de pipe
-name: 'Execução Manual'
+name: 'Execução Agendada'
 
 on:
   schedule:
