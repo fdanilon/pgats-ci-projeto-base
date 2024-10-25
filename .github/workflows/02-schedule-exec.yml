@@ -16,42 +16,40 @@ on:
       # rodar toda segunda feira as 8h da manha
       # 0 8 * * 1
       #https://crontab.guru/
-#trigger OU gatilhos de execução
+  #trigger OU gatilhos de execução
   #gatilho de exec manual = workflow_dispatch
-  workflow_dispatch: 
-
+  workflow_dispatch:
 
 jobs:
   #descricao do job
   e2e-tests:
-      #maquina que o job vai executar
-      runs-on: ['ubuntu-latest']
+    #maquina que o job vai executar
+    runs-on: ['ubuntu-latest']
 
-      #passo a passo das acoes do job
-      steps:
+    #passo a passo das acoes do job
+    steps:
+      # - run:
+      #    git clone <url:
+      - uses: actions/checkout@v4
 
-        # - run: 
-        #    git clone <url:
-        - uses: actions/checkout@v4
+      # - uses: actions/setup-node@v4
+      #   with:
+      #       node-version: lts/*
 
-        # - uses: actions/setup-node@v4
-        #   with:
-        #       node-version: lts/*
+      - name: Instalando yarn
+        run: npm install -g yarn
 
-        - name: Instalando yarn
-          run: npm install -g yarn
+      - name: Instalando dependencias
+        run: yarn
 
-        - name: Instalando dependencias
-          run: yarn
+      - name: Instalando Playwright
+        run: yarn playwright install
 
-        - name: Instalando Playwright
-          run: yarn playwright install
+      - name: Testes E@E (end-to-end)
+        run: yarn run e2e
 
-        - name: Testes E@E (end-to-end)
-          run: yarn run e2e
-
-        - uses: actions/upload-artifact@v4
-          if: ${{ !cancelled() }}
-          with:
-            name: relatorio-de-testes
-            path: ./playwright-report
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: relatorio-de-testes
+          path: ./playwright-report
