@@ -1,11 +1,23 @@
-#CI de Nível 01 - Disparo manual a partir de 1 clique
+#CI de Nível 02 - Disparo executado agendado
 
 #nome que vai aparecer nas opções de pipe
 name: 'Execução Manual'
 
+on:
+  schedule:
+    - cron: '0 8 * * 1'
+
+      #parametros
+      # a - minuto
+      # b - hora
+      # c - dias
+      # d - meses do ano
+      # e - dias da semana
+      # rodar toda segunda feira as 8h da manha
+      # 0 8 * * 1
+      #https://crontab.guru/
 #trigger OU gatilhos de execução
   #gatilho de exec manual = workflow_dispatch
-on:
   workflow_dispatch: 
 
 

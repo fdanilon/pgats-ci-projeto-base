@@ -1,13 +1,20 @@
-#CI de Nível 01 - Disparo manual a partir de 1 clique
+uses: szenius/settimezone@v2.0
+with:
+    timezoneLinux: "America/SaoPaulo"
+
+
+#CI de Nível 01 - Disparo automatico sempre que outro for concluido
 
 #nome que vai aparecer nas opções de pipe
-name: 'Execução Manual'
+name: 'Execução por deploy'
 
 #trigger OU gatilhos de execução
   #gatilho de exec manual = workflow_dispatch
 on:
-  workflow_dispatch: 
-
+  workflow_run: 
+    workflows: ['Execução Manual']
+    types:
+      - completed
 
 jobs:
   #descricao do job
